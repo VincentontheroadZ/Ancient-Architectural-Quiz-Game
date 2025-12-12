@@ -168,24 +168,11 @@
             }
         }
 
-        /* ====================== 手機寬屏時兩邊出黑邊（優雅又不突兀）====================== */
-        @media (max-width: 1200px) {
+        /* 手機橫屏時讓兩側留白變成黑色（直接改 body 底色） */
+        @media (orientation: landscape) and (max-height: 600px) {
             body {
-                background: linear-gradient(to right,
-                        #000 0%,
-                        #000 15%,
-                        transparent 30%,
-                        transparent 70%,
-                        #000 85%,
-                        #000 100%),
-                    url('pics/ancient-portal.jpg') no-repeat center center fixed;
-                background-size: cover;
-            }
-
-            /* 讓黑邊更自然一點（可選） */
-            body::before {
-                background: rgba(0, 0, 0, 0.25);
-                /* 黑邊上再疊一層薄黑，過渡更柔和 */
+                background-color: #000 !important;
+                /* ← 核心：底層改黑，兩側就變黑邊 */
             }
         }
     </style>
