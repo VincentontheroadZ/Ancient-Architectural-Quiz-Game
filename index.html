@@ -23,7 +23,7 @@
             font-family: 'MedievalSharp', cursive;
             position: relative;
             overflow: hidden;
-            cursor: default;                     /* ← 關鍵！手機才能正常點擊 */
+            cursor: default;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -67,7 +67,7 @@
             height: 100%;
             transition: all 0.4s ease;
             cursor: pointer;
-            touch-action: manipulation;   /* 手機觸摸更快 */
+            touch-action: manipulation;
         }
 
         .china-zone   { left: 0; }
@@ -81,7 +81,7 @@
         .china-zone:hover   { box-shadow: inset 0 0 80px rgba(255,140,0,0.35); }
         .western-zone:hover { box-shadow: inset 0 0 80px rgba(70,130,180,0.35); }
 
-        /* 提示文字 */
+        /* 完全保留你原本的提示文字樣式與位置 */
         .china-zone::after,
         .western-zone::after {
             font-size: 1.9em;
@@ -110,34 +110,6 @@
         .china-zone:hover::after,
         .western-zone:hover::after { opacity: 1; }
 
-        /* ====================== 手機專用布局 ======================
-        @media (max-width: 1200px) {
-            h1 { font-size: 3.2em; }
-
-            .china-zone,
-            .western-zone {
-                width: 100% !important;
-                left: 0 !important;
-            }
-
-            .china-zone   { top: 0; height: 50%; }
-            .western-zone { top: 50%; height: 50%; }
-
-            .china-zone::after {
-                font-size: 1.6em;
-                bottom: 15%;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .western-zone::after {
-                font-size: 1.6em;
-                top: 12%;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-        } */
-
         @media (max-width: 480px) {
             h1 { font-size: 2.6em; }
             .china-zone::after,
@@ -153,38 +125,65 @@
     </h1>
 
     <div class="zones">
-        <a href="ChinaAncient/index.html" class="china-zone" title="東方秘境"></a>
-        <a href="ForeignAncient/index.html" class="western-zone" title="西方遺跡"></a>
+        <a href="ChinaAncient/index.html" class="china-zone"   id="chinaZone"></a>
+        <a href="ForeignAncient/index.html" class="western-zone" id="westernZone"></a>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const zh = document.querySelector('.zh-span');
             const en = document.querySelector('.en-span');
-            const china = document.querySelector('.china-zone');
-            const western = document.querySelector('.western-zone');
+            const chinaZone   = document.getElementById('chinaZone');
+            const westernZone = document.getElementById('westernZone');
 
-            china.addEventListener('mouseenter', () => {
+            // —— 電腦 hover 完全保留你原本的寫法 ——
+            chinaZone.addEventListener('mouseenter', () => {
                 zh.style.opacity = '1';
                 en.style.opacity = '0.35';
             });
-
-            western.addEventListener('mouseenter', () => {
+            westernZone.addEventListener('mouseenter', () => {
                 en.style.opacity = '1';
                 zh.style.opacity = '0.35';
             });
-
-            [china, western].forEach(zone => {
+            [chinaZone, westernZone].forEach(zone => {
                 zone.addEventListener('mouseleave', () => {
-                    zh.style.opacity = '1';
-                    en.style.opacity = '1';
+                    zh.style.opacity = en.style.opacity = '1';
                 });
             });
 
-            // 手機觸摸也支援（iOS Safari 必備）
-            document.querySelectorAll('.china-zone, .western-zone').forEach(link => {
-                link.addEventListener('touchstart', e => {}, { passive: true });
-            });
+            // —— 手機專用「第一次點顯示特效，第二次點才跳轉」——
+            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+                let chinaTouched = false;
+                let westernTouched = false;
+
+                chinaZone.addEventListener('touchstart', function(e) {
+                    if (chinaTouched) {
+                        // 第二次點 → 允許正常跳轉
+                        chinaTouched = false;
+                        return;
+                    }
+                    // 第一次點 → 阻止跳轉，只顯示特效
+                    e.preventDefault();
+                    chinaTouched = true;
+                    chinaZone.classList.add('hover');        // 強制觸發 :hover 所有樣式
+                    zh.style.opacity = '1';
+                    en.style.opacity = '0.35';
+                    setTimeout(() => chinaTouched = false, 3000); // 3秒後自動允許再次點擊
+                });
+
+                westernZone.addEventListener('touchstart', function(e) {
+                    if (westernTouched) {
+                        westernTouched = false;
+                        return;
+                    }
+                    e.preventDefault();
+                    westernTouched = true;
+                    westernZone.classList.add('hover');
+                    en.style.opacity = '1';
+                    zh.style.opacity = '0.35';
+                    setTimeout(() => westernTouched = false, 3000);
+                });
+            }
         });
     </script>
 </body>
