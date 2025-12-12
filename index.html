@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -8,7 +9,9 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=MedievalSharp:wght@400&family=Noto+Serif+SC:wght@400;700&display=swap');
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
@@ -44,7 +47,7 @@
             transform: translate(-50%, -50%);
             text-align: center;
             width: 100%;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
             z-index: 1;
             margin: 0;
             letter-spacing: 1.5px;
@@ -52,7 +55,9 @@
             transition: opacity 0.4s ease;
         }
 
-        h1 .zh-span { font-family: 'Noto Serif SC', serif; }
+        h1 .zh-span {
+            font-family: 'Noto Serif SC', serif;
+        }
 
         .zones {
             position: fixed;
@@ -70,23 +75,33 @@
             touch-action: manipulation;
         }
 
-        .china-zone   { left: 0; }
-        .western-zone { right: 0; }
+        .china-zone {
+            left: 0;
+        }
+
+        .western-zone {
+            right: 0;
+        }
 
         .china-zone:hover,
         .western-zone:hover {
             filter: brightness(1.15);
         }
 
-        .china-zone:hover   { box-shadow: inset 0 0 80px rgba(255,140,0,0.35); }
-        .western-zone:hover { box-shadow: inset 0 0 80px rgba(70,130,180,0.35); }
+        .china-zone:hover {
+            box-shadow: inset 0 0 80px rgba(255, 140, 0, 0.35);
+        }
+
+        .western-zone:hover {
+            box-shadow: inset 0 0 80px rgba(70, 130, 180, 0.35);
+        }
 
         /* 完全保留你原本的提示文字樣式與位置 */
         .china-zone::after,
         .western-zone::after {
             font-size: 1.9em;
             font-family: 'MedievalSharp', cursive;
-            color: rgba(255,255,255,0.9);
+            color: rgba(255, 255, 255, 0.9);
             text-shadow: 1px 1px 4px #000;
             opacity: 0;
             transition: opacity 0.4s ease;
@@ -108,15 +123,53 @@
         }
 
         .china-zone:hover::after,
-        .western-zone:hover::after { opacity: 1; }
+        .western-zone:hover::after {
+            opacity: 1;
+        }
 
         @media (max-width: 480px) {
-            h1 { font-size: 2.6em; }
+            h1 {
+                font-size: 2.6em;
+            }
+
             .china-zone::after,
-            .western-zone::after { font-size: 1.4em; }
+            .western-zone::after {
+                font-size: 1.4em;
+            }
+        }
+
+        /* ====================== 僅手機版縮小文字（電腦完全不受影響）====================== */
+        @media (max-width: 1200px) {
+
+            /* 主標題 */
+            h1 {
+                font-size: 3.6em !important;
+                /* 原 4.5em → 手機變小 */
+            }
+
+            /* 左右兩邊的提示文字 */
+            .china-zone::after,
+            .western-zone::after {
+                font-size: 1.6em !important;
+                /* 原 1.9em → 手機變小 */
+            }
+        }
+
+        /* 超小手機再小一點（可選） */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.9em !important;
+            }
+
+            .china-zone::after,
+            .western-zone::after {
+                font-size: 1.4em !important;
+                important;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <h1>
@@ -125,15 +178,15 @@
     </h1>
 
     <div class="zones">
-        <a href="ChinaAncient/index.html" class="china-zone"   id="chinaZone"></a>
+        <a href="ChinaAncient/index.html" class="china-zone" id="chinaZone"></a>
         <a href="ForeignAncient/index.html" class="western-zone" id="westernZone"></a>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const zh = document.querySelector('.zh-span');
             const en = document.querySelector('.en-span');
-            const chinaZone   = document.getElementById('chinaZone');
+            const chinaZone = document.getElementById('chinaZone');
             const westernZone = document.getElementById('westernZone');
 
             // —— 電腦 hover 完全保留你原本的寫法 ——
@@ -156,7 +209,7 @@
                 let chinaTouched = false;
                 let westernTouched = false;
 
-                chinaZone.addEventListener('touchstart', function(e) {
+                chinaZone.addEventListener('touchstart', function (e) {
                     if (chinaTouched) {
                         // 第二次點 → 允許正常跳轉
                         chinaTouched = false;
@@ -171,7 +224,7 @@
                     setTimeout(() => chinaTouched = false, 3000); // 3秒後自動允許再次點擊
                 });
 
-                westernZone.addEventListener('touchstart', function(e) {
+                westernZone.addEventListener('touchstart', function (e) {
                     if (westernTouched) {
                         westernTouched = false;
                         return;
@@ -187,4 +240,5 @@
         });
     </script>
 </body>
+
 </html>
