@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ancient Architecture Quest</title>
+    <link rel="icon" href="pics/favicon.ico" type="image/x-icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp:wght@400&family=Noto+Serif+SC:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('pics/ancient-portal.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'MedievalSharp', cursive;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(64, 64, 64, 0.45);
+            z-index: -1;
+        }
+
+        h1 {
+            color: rgb(255, 255, 255);
+            font-size: 4.5em;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            text-align: center;
+            width: 100%;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            margin: 0;
+            font-family: 'MedievalSharp', cursive;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            line-height: 1.3;
+            transition: opacity 0.3s ease; /* 平滑透明度变 */
+        }
+
+        /* 中文span专用字体 */
+        h1 .zh-span {
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        .zones {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 2;
+        }
+
+        .china-zone {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .china-zone:hover {
+            filter: brightness(1.1);
+            box-shadow: inset 0 0 50px rgba(255, 140, 0, 0.3);
+        }
+
+        .western-zone {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .western-zone:hover {
+            filter: brightness(1.1);
+            box-shadow: inset 0 0 50px rgba(70, 130, 180, 0.3);
+        }
+
+        /* 提示文本：中国保持左下 */
+        .china-zone::after {
+            content: "東方秘境 · Click to Explore";
+            position: absolute;
+            bottom: 10%;
+            left: 10%;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.8em;
+            font-family: 'MedievalSharp', cursive;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .china-zone:hover::after {
+            opacity: 1;
+        }
+
+        /* 提示文本：西方移到右上 */
+        .western-zone::after {
+            content: "西方遺跡 · Click to Explore";
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.8em;
+            font-family: 'MedievalSharp', cursive;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .western-zone:hover::after {
+            opacity: 1;
+        }
+
+        /* 响应式：小屏相应调整 */
+        @media (max-width: 1200px) {
+            .china-zone, .western-zone {
+                width: 100%;
+            }
+            .western-zone {
+                left: 0;
+            }
+            h1 {
+                font-size: 3em;
+                letter-spacing: 1px;
+                line-height: 1.2;
+            }
+            .china-zone::after {
+                font-size: 1.4em;
+                bottom: 10%;
+            }
+            .western-zone::after {
+                font-size: 1.4em;
+                top: 15%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        <span lang="zh-TW" class="zh-span">古建&nbsp;&nbsp;探秘&nbsp;&nbsp;之旅</span><br>
+        <span lang="en" class="en-span">Echo&nbsp;&nbsp;Horizons&nbsp;&nbsp;Quest</span>
+    </h1>
+    
+    <div class="zones">
+        <a href="ChinaAncient/index.html" class="china-zone" title="東方秘境"></a>
+        <a href="ForeignAncient/index.html" class="western-zone" title="西方遺跡"></a>
+    </div>
+
+    <script>
+        // JS监听分区hover，直接控制标题透明度
+        document.addEventListener('DOMContentLoaded', function() {
+            const zhSpan = document.querySelector('.zh-span');
+            const enSpan = document.querySelector('.en-span');
+            const chinaZone = document.querySelector('.china-zone');
+            const westernZone = document.querySelector('.western-zone');
+
+            // Hover中国分区：中文正常（opacity 1），英文不明显（0.6）
+            chinaZone.addEventListener('mouseenter', function() {
+                zhSpan.style.opacity = '1'; // 中文正常明显
+                enSpan.style.opacity = '0.3'; // 英文变不明显（朦胧）
+            });
+
+            // Hover西方分区：英文正常（1），中文不明显（0.6）
+            westernZone.addEventListener('mouseenter', function() {
+                enSpan.style.opacity = '1'; // 英文正常明显
+                zhSpan.style.opacity = '0.3'; // 中文变不明显（朦胧）
+            });
+
+            // 鼠标离开恢复正常（1）
+            [chinaZone, westernZone].forEach(zone => {
+                zone.addEventListener('mouseleave', function() {
+                    zhSpan.style.opacity = '1';
+                    enSpan.style.opacity = '1';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

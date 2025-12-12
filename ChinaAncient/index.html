@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>東方秘境</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="pics/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="hint-images">
+        <div id="hint-text" class="hint-text">點擊周圍四張卡片獲取提示！</div>
+        <div class="hint-image top-left">
+            <div class="card">
+                <div class="front" style="background-image: url('pics/hint-changcheng.jpg');"></div> <!-- 长城新图 -->
+                <div class="back">
+                    <div class="title">長城 Profile</div>
+                    <div class="profile">
+                        <p>● 地形適應萬里連</p>
+                        <p>● 烽火連傳迅捷</p>
+                        <p>● 磚石互鎖永不朽</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hint-image bottom-left">
+            <div class="card">
+                <div class="front" style="background-image: url('pics/hint-gugong.jpg');"></div> <!-- 故宫新图 -->
+                <div class="back">
+                    <div class="title">故宮 Profile</div>
+                    <div class="profile">
+                        <p>● 軸線對稱宇宙觀</p>
+                        <p>● 榫卯抗震千年穩</p>
+                        <p>● 琉璃映照華章</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hint-image top-right">
+            <div class="card">
+                <div class="front" style="background-image: url('pics/hint-dayanta.jpg');"></div> <!-- 大雁塔新图 -->
+                <div class="back">
+                    <div class="title">大雁塔 Profile</div>
+                    <div class="profile">
+                        <p>● 密檐磚塔抗震晃</p>
+                        <p>● 方圓陰陽和諧</p>
+                        <p>● 玄奘經卷永傳</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hint-image bottom-right">
+            <div class="card">
+                <div class="front" style="background-image: url('pics/hint-dujiangyan.jpg');"></div> <!-- 都江堰新图 -->
+                <div class="back">
+                    <div class="title">都江堰 Profile</div>
+                    <div class="profile">
+                        <p>● 无坝順天分流</p>
+                        <p>● 飛沙導洪自如</p>
+                        <p>● 千里灌溉永續</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="game-container">
+        <div class="header">
+            <h1>中國&nbsp;&nbsp;古建</h1>
+            <div class="score-section">
+                <p>Score: <span id="score">0</span></p>
+            </div>
+        </div>
+
+        <div id="gameover-text" class="gameover-text"></div>
+
+        <button id="restart-button" class="restart-button">
+            <img id="restart" src="pics/restart.png" alt="Restart">
+        </button>
+        <button id="home-button" class="home-button">
+            <img id="home" src="pics/home.png" alt="Home">
+        </button>
+        <div class="question-section">
+            <img id="terrain-image" src="" alt="Terrain Pattern">
+            <img id="radar" src="pics/radar.png" alt="Radar" class="radar">
+            <div id="question-text" class="question-text">衛星當前掃描的是何種古建？</div>
+            <div class="planet-circle">
+                <div class="earth-image" style="background-image: url('pics/earth-china.png');"></div>
+            </div>
+            <img src="pics/satellite.png" alt="Satellite" class="satellite">
+            <img src="pics/laser_scan.png" alt="Laser Scan" class="laser-scan">
+            <div class="choices-container">
+                <div id="choices">
+                    <button class="choice-button">故宮</button>
+                    <button class="choice-button">長城</button>
+                    <button class="choice-button">大雁塔</button>
+                    <button class="choice-button">都江堰</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 答题反馈弹窗 -->
+    <div id="feedback-modal" class="feedback-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">正確！</h2>
+            </div>
+            <div class="modal-body">
+                <h3 id="modal-name">長城</h3>
+                <p id="modal-intro">简介内容...</p>
+            </div>
+            <div class="modal-footer">
+                <button id="continue-btn">繼續下一題 →</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

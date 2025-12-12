@@ -1,0 +1,491 @@
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-image: url('pics/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2); /* Adjust the RGBA value to control the transparency */
+    z-index: -1; /* Ensure the overlay is behind all other content */
+}
+
+.hint-images {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* Prevent interaction with the hint images */
+}
+
+.hint-image {
+    width: 18vw; /* Adjusted size */
+    height: 18vw; /* Adjusted size */
+    position: absolute;
+    perspective: 1000px; /* Enable 3D space for the flip effect */
+    pointer-events: auto; /* Allow interaction with the hint images */
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.front, .back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden; /* Hide the back side when not flipped */
+}
+
+.front {
+    background-size: cover;
+    background-position: center;
+    border: 0.2vw solid rgb(0, 0, 0);
+    border-radius: 1vw;
+}
+
+.back {
+    background-color: rgba(227, 228, 212, 0.8);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+    font-size: 1.2vw;
+    transform: rotateY(180deg);
+    border: 0.2vw solid rgb(0, 0, 0);
+    border-radius: 1vw;
+    padding: 0vw; /* Added padding for better readability */
+    text-align: center; /* Center align text */
+}
+
+.back .title {
+    font-size: 1.5vw;
+    font-weight: bold;
+    margin-bottom: 0.8vw;
+    margin-top: 2.5vw;
+}
+
+.back .profile {
+    font-size: 1.4vw;
+    line-height: 1;             /* 行距舒适 */
+    text-align: left;              /* 左对齐更自然 */
+    width: 85%;                    /* 限制宽度，防止贴满 */
+    margin: 0 auto;
+    padding: 0;
+    hyphens: auto;                 /* 英文自动断行，不溢出 */
+    word-spacing: normal;        /* 强制单词间距统一 */
+    text-justify: none;          /* 彻底关闭两端对齐 */
+}
+
+.back .profile p {
+    margin-bottom: 0.3vw; /* Adjust this value for paragraph spacing */
+}
+
+.top-left {
+    top: 27vh; 
+    left: 9.9vw;
+    transform: translate(-50%, -50%);
+}
+
+.bottom-left {
+    bottom: 28vh;
+    left: 9.9vw;
+    transform: translate(-50%, 50%);
+}
+
+.top-right {
+    top: 27vh; 
+    right: -8vw;
+    transform: translate(-50%, -50%);
+}
+
+.bottom-right {
+    bottom: 28vh;
+    right: -8vw;
+    transform: translate(-50%, 50%);
+}
+
+.game-container {
+    background-color: #9dbaa7c4;
+    border: 0.2vw solid rgb(0, 0, 0);
+    border-radius: 1vw;
+    padding: 2vw;
+    width: 60vw;
+    height: 80vh;   
+    box-shadow: 0 0 2vw rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1; /* Ensure the game container is above the hint images */
+}
+
+@media (display-mode: fullscreen) {
+    .game-container {
+        height: 75vh !important;
+    }
+}
+
+.header {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 2vh;
+    margin-top: -3.5vh; /* Adjust this value to move the title up or down */
+}
+
+.header h1 {
+    font-size: 2.3vw;
+    color: #333333;
+}
+
+.score-section {
+    text-align: center;
+    width: 100%;
+    margin-top: -3vh;
+    font-size: 1.5vw;
+    color: #555;
+}
+
+.score-section p {
+    margin: 0;
+    padding: 1vh;
+}
+
+.score-section span {
+    font-weight: bold;
+    color: #ff6600;
+}
+
+.question-section {
+    text-align: center;
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+    margin-top: 22vh;
+}
+
+.question-text {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    position: absolute;
+    /* transform: translate(-50%, -50%); */
+    font-size: 1.7vw; /* Adjust the font size */
+    text-align: center; /* Center the text */
+    color: #333; /* Set the text color */
+    width: 100%;
+    top:78%;
+    font-weight: bold; /* Make the text bold */
+}
+
+.planet-circle {
+    width: 10vw;
+    height: 10vw;
+    border-radius: 50%;
+    position: absolute;
+    top: 48% !important; /* Use !important to override other styles */
+    left: 26%; /* Adjusted position to move left */
+    transform: translate(-50%, -50%);
+    overflow: hidden; /* Ensures the inner div stays within the circle */
+}
+
+.earth-image {
+    width: 10.5vw; 
+    height: 10.5vw;
+    background-image: url('pics/earth-western.png'); /* Path to your moon image */
+    background-size: cover;
+    background-position: center; /* Start with centering */
+    /* position: absolute;  */
+    transform: translate(-3%, -3%);
+    /* top: 48% !important; 
+    left: 26%; */
+}
+
+.satellite {
+    width: 3vw; /* Adjust size as needed */
+    height: 5vw; /* Maintain aspect ratio */
+    position: absolute;
+    transform-origin: center;
+    transition: transform 5s;
+}
+
+.laser-scan {
+    width: 2vw; /* Adjust width as needed */
+    height: 1.7vw; /* Adjust height as needed */
+    position: absolute;
+    transform-origin: center;
+    transition: transform 5s;
+}
+
+.choices-container {
+    width: 100%;
+    position: absolute;
+    top:88%; 
+}
+
+#choices {
+    display: flex;
+    justify-content: center;
+    gap: 2vw;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    width: 100%; /* Ensure container is wide enough */
+}
+
+.choice-button {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 1vh 2vw;
+    margin: 0.5vh;
+    border: 0.2vw solid rgb(0, 0, 0);
+    border-radius: 1vw;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    font-size: 1.65vw;
+    flex: 0.8;
+    max-width: 11vw;
+    box-sizing: border-box;
+    text-align: center; /* 确保水平居中 */    
+    vertical-align: middle; /* 新增：垂直居中文字 */
+    display: flex; /* 新增：用flex让文字完全居中 */
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+}
+
+.choice-button:hover {
+    background-color: #e0e0e0;
+}
+
+#terrain-image {
+    display: none; /* Initially hidden */
+    position: absolute;
+    top: 48%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    width: 18vw;  /* Fixed width */
+    height: 18vw; /* Fixed height to make it square */
+    object-fit: cover; /* Ensure the image covers the entire area without distortion */
+    background-color: rgb(0, 0, 0, 0.9);
+    border: 0.5vw solid rgb(0, 0, 0, 0.9); /* Optional: Add a border for better visibility */
+    border-radius: 1vw; /* Optional: Add rounded corners */
+}
+
+.radar {    
+    position: absolute;
+    top: 58%;
+    left: 54.3%;
+    transform: translate(-50%, -50%);
+    width: 12vw;  /* Fixed width */
+    height: 12vw; /* Fixed height to make it square */
+    object-fit: cover; /* Ensure the image covers the entire area without distortion */    
+}
+
+.gameover-text {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    position: absolute;
+    font-size: 4vw; /* Adjust the font size */
+    text-align: center; /* Center the text */
+    color: #333; /* Set the text color */
+    top: 50%;
+    left: 43%;
+    transform: translate(-50%, -50%);   /* 這行是王道！ */
+    font-weight: bold; /* Make the text bold */
+}
+
+.restart-button {
+    position: absolute;
+    width: 5vw;
+    height: 5vw;
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%);   /* 這行是王道！ */
+    object-fit: cover; /* Ensure the image covers the entire area without distortion */
+    border: 0.5vw solid #333; /* Optional: Add a border for better visibility */
+    border-radius: 1vw; /* Optional: Add rounded corners */
+    background-color: #333;
+    cursor: pointer;
+    display: flex; /* Use flexbox to center the image */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    padding: 5px; /* Adjust padding to fine-tune the image position */
+}
+
+.restart-button img {
+    width: 3.5vw;
+    height: 3.5vw; 
+    position: relative; /* Use relative positioning to fine-tune */
+    top: 0px; /* Adjust these values to fine-tune the position */
+    left: 0px; /* Adjust these values to fine-tune the position */
+}
+
+.home-button {
+    position: absolute;
+    text-align: center;
+    width: 5.5vw;
+    height: 5.5vw; 
+    top: 0px; 
+    right: 0px;
+    object-fit: cover; /* Ensure the image covers the entire area without distortion */
+    border: 0.5vw solid #A1BAA7;
+    border-radius: 1vw; /* Optional: Add rounded corners */
+    background-color: rgb(0, 0, 0);
+    cursor: pointer;
+    display: flex; /* Use flexbox to center the image */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    padding: 5px; /* Adjust padding to fine-tune the image position */
+}
+
+.home-button img {
+    width: 5vw;
+    height: 5vw;     
+}
+
+.hint-text {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    position: absolute;
+    font-size: 1.8vw; /* Adjust the font size */
+    text-align: center; /* Center the text */
+    color: #333; /* Set the text color */
+    margin-top: 1vw; /* Add space above the text */
+    margin-bottom: 0vw; /* Add space below the text */
+    margin-left: 1vw; /* Add space above the text */
+    font-weight: bold; /* Make the text bold */
+}
+
+
+/* 答题反馈弹窗 */
+.feedback-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 50vw;         /* 手機不會撐爆 */
+    max-width: 50vw;         /* 手機不會撐爆 */
+    max-height: 58vh;          /* ← 2. 改成 max-height（絕對關鍵！） */
+    min-height: 40vh;          /* ← 3. 加這行防止太小 */
+    height: auto;               /* ← 4. 讓高度自動撐開 */
+    background: rgba(238, 233, 219, 0.95);
+    border: 0.4vw solid #cabebe;
+    border-radius: 1.5vw;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    overflow: hidden;
+    animation: modalPop 0.4s ease-out;
+    padding: 0vw 1.5vw 1.5vw;               /* ← 6. 建議加一點內距，文字不會貼邊 */
+    box-sizing: border-box;     /* ← 7. 確保 padding 不會撐爆 */
+}
+
+@keyframes modalPop {
+    0% { transform: translate(-50%, -50%) scale(0.7); opacity: 0; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.modal-header {
+    padding: 1.8vw;
+    text-align: center;
+}
+
+#modal-title {
+    font-size: 3vw;
+    margin: 0 0 1.5vw 0;
+    font-weight: bold;
+}
+
+#modal-title.correct {
+    color: #2e8b57;
+    text-shadow: 0 0 10px rgba(46,139,87,0.4);
+}
+
+#modal-title.wrong {
+    color: #c33;
+    text-shadow: 0 0 10px rgba(200,50,50,0.4);
+}
+
+#modal-name {
+    font-size: 2.2vw;
+    color: #8b4513;
+    margin: 1vw 0;
+}
+
+/* 弹窗正文：左对齐 + 更优雅的排版 */
+#modal-intro {
+    font-size: 1.58vw;
+    line-height: 1.85;           /* 行距稍微再放大一点，呼吸感更好 */
+    color: #333;
+    margin: 0;
+    text-align: left;            /* ← 关键：改成左对齐 */
+    padding: 0 0.2vw;            /* 左右留安全边距，防止贴边 */
+    hyphens: auto;               /* 可选：英文自动断字，手机上更美观 */
+    word-spacing: normal;        /* 强制单词间距统一 */
+    text-justify: none;          /* 彻底关闭两端对齐 */
+}
+
+#continue-btn {
+    margin-top: 0.8vw;
+    padding: 0.8vw 1vw;
+    font-size: 1.7vw;
+    background: #8b4513;
+    color: white;
+    border: none;
+    border-radius: 1vw;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(139,69,19,0.4);
+    transition: all 0.3s;
+}
+
+#continue-btn:hover {
+    background: #a0522d;
+    transform: translateY(-2px);
+}
+
+/* 只向上移动建筑名字 + 介绍文字，不影响「正確！」「錯誤！」 */
+.modal-body {
+    margin-top: -4vw;     /* 核心：负值越大越往上（推荐 -3.5vw ~ -4.5vw 之间调） */
+    padding: 0 1vw;       /* 左右留点边距更好看 */
+}
+
+#modal-name {
+    font-size: 2.4vw;
+    margin: 0 0 1vw 0;
+    color: #8b4513;
+}
+
+#modal-intro {
+    font-size: 1.58vw;
+    line-height: 1.8;
+    margin: 0;
+    text-align: justify;
+}

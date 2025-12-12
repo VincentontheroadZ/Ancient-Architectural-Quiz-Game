@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Western Ancient Architecture</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="pics/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="hint-images">
+        <div id="hint-text" class="hint-text">Click the four cards for hints!</div>
+
+        <div class="hint-image top-left">
+            <div class="card">
+                <div class="front" style="background-image: url('pics/hint-pyramid.jpg');"></div>
+                <div class="back">
+                    <div class="title">Pyramid Profile</div>
+                    <div class="profile">
+                        <p>● Eternal pharaoh tomb</p>
+                        <p>● 2.3 million stone blocks</p>
+                        <p>● Only surviving Ancient Wonder</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hint-image bottom-left">
+            <div class="card">
+                <div class="front" style="background-image: url('pics/hint-colosseum.jpg');"></div>
+                <div class="back">
+                    <div class="title">Colosseum Profile</div>
+                    <div class="profile">
+                        <p>● Oval amphitheatre</p>
+                        <p>● Held 50,000–80,000 spectators</p>
+                        <p>● Underground hypogeum system</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hint-image top-right">
+            <div class="card">
+                <div class="front" style="background-image: url('pics/hint-parthenon.jpg');"></div>
+                <div class="back">
+                    <div class="title">Parthenon Profile</div>
+                    <div class="profile">
+                        <p>● Temple on the Acropolis</p>
+                        <p>● Doric columns & golden ratio</p>
+                        <p>● Dedicated to goddess Athena</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hint-image bottom-right">
+            <div class="card">
+                <div class="front" style="background-image: url('pics/hint-stonehenge.jpg');"></div>
+                <div class="back">
+                    <div class="title">Stonehenge Profile</div>
+                    <div class="profile">
+                        <p>● Prehistoric stone circle</p>
+                        <p>● Precisely aligned with solstices</p>
+                        <p>● Massive stones up to 50 tons</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-container">
+        <div class="header">
+            <h1>Western&nbsp;&nbsp;Ancient&nbsp;&nbsp;Architecture</h1>
+            <div class="score-section">
+                <p>Score: <span id="score">0</span></p>
+            </div>
+        </div>
+
+        <div id="gameover-text" class="gameover-text"></div>
+
+        <button id="restart-button" class="restart-button">
+            <img id="restart" src="pics/restart.png" alt="Restart">
+        </button>
+        <button id="home-button" class="home-button">
+            <img id="home" src="pics/home.png" alt="Home">
+        </button>
+
+        <div class="question-section">
+            <img id="terrain-image" src="" alt="Architecture Pattern">
+            <img id="radar" src="pics/radar.png" alt="Radar" class="radar">
+            <div id="question-text" class="question-text">
+                What ancient wonder is the satellite currently scanning?
+            </div>
+
+            <div class="planet-circle">
+                <div class="earth-image" style="background-image: url('pics/earth-western.png');"></div>
+            </div>
+
+            <img src="pics/satellite.png" alt="Satellite" class="satellite">
+            <img src="pics/laser_scan.png" alt="Laser Scan" class="laser-scan">
+
+            <div class="choices-container">
+                <div id="choices">
+                    <button class="choice-button">Pyramid</button>
+                    <button class="choice-button">Colosseum</button>
+                    <button class="choice-button">Parthenon</button>
+                    <button class="choice-button">Stonehenge</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 答题反馈弹窗 -->
+    <div id="feedback-modal" class="feedback-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Correct!</h2>
+            </div>
+            <div class="modal-body">
+                <h3 id="modal-name">Pyramid</h3>
+                <p id="modal-intro">...</p>
+            </div>
+            <div class="modal-footer">
+                <button id="continue-btn">Next Question →</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
