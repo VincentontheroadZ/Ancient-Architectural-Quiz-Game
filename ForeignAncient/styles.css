@@ -489,3 +489,10 @@ body::before {
     margin: 0;
     text-align: justify;
 }
+
+/* 手機橫屏時兩側出黑邊（電影感）→ 請貼到 ChinaAncient/index.html 和 ForeignAncient/index.html 的 <style> 裡 */
+@media (orientation: landscape) and (max-height: 600px) {
+    body {
+        background-color: #000 !important;   /* 底層鋪黑，背景圖蓋不到的地方就會變黑 */
+    }
+}
